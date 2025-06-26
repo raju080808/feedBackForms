@@ -1,0 +1,106 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="pharmacyfeedback">
+<h3>Pharmacy Feedback Data</h3>
+@if(pharmacyfeedbackList.length > 0){
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Pharmacy Name</th>
+      <th>Contact Person</th>
+      <th>Mobile Number</th>
+      <th>Email</th>
+      <th>Feedback Category</th>
+      <th>Feedback Message</th>
+      <th>Rating</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(feedback of pharmacyfeedbackList; track $index){
+    <tr>
+      <td>{{ feedback.pharmacyname | firstlettercaps}}</td>
+      <td>{{ feedback.contactpersonname | firstlettercaps}}</td>
+      <td>{{ feedback.mobilenumber }}</td>
+      <td>{{ feedback.email | nodata }}</td>
+      <td>{{ feedback.feedbackcategory }}</td>
+      <td>{{ feedback.feedbackmessage | nodata}}</td>
+      <td>{{ feedback.rating | nodata}}</td>
+      <td>
+        <button class="btn btn-primary" (click)="openViewPopup(feedback)" title="view">
+          <i class="fa fa-eye"></i></button>
+        <button class="btn btn-danger" (click)="openDeletePopup($index)" title="delete">
+          <i class="fa fa-trash"></i></button>   
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
+}
+ <div class="modal fade" id="viewConfirmModel" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top custom-width">
+      <div class="modal-content">
+        <div class="modal-body modelbody">
+          @if(selectedRow){
+            <div class="summary-container">
+              <div class="summary-title">
+                <i class="fa fa-arrow-circle-left" data-bs-dismiss="modal"></i> Feedback Summary
+              </div>
+              <div class="summary-grid">
+              <div>
+               <div class="summary-label">Pharmacy Name:</div>
+                  <div class="summary-value">{{selectedRow.pharmacyname | firstlettercaps}}</div>
+              </div>
+              <div>
+                <div class="summary-label">Contact Person Name:</div>
+                  <div class="summary-value">{{selectedRow.contactpersonname | firstlettercaps}}</div>
+                </div>
+                <div>
+                  <div class="summary-label">Mobile Number:</div>
+                  <div class="summary-value">{{selectedRow.mobilenumber}}</div>
+                </div>
+                <div>
+                  <div class="summary-label">Email:</div>
+                  <div class="summary-value">{{selectedRow.email | nodata}}</div>
+                </div>
+                <div>
+                  <div class="summary-label">Selected Feedback Category:</div>
+                  <div class="summary-value">{{selectedRow.feedbackcategory}}</div>
+                </div>
+                <div>
+                  <div class="summary-label">Feedback Message Given:</div>
+                  <div class="summary-value">{{selectedRow.feedbackmessage | nodata}}</div>
+                </div>
+                <div>
+                  <div class="summary-label">Rating Given:</div>
+                  <div class="summary-value">{{selectedRow.rating | nodata}}</div>
+                </div>
+              </div>
+            </div>
+            }
+            
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered custom-modal-width">
+      <div class="modal-content">
+        <div class="modal-body modelbody bg-light">
+          <div class="modelbody">
+            <div class="icon-circle mb-3 mx-auto mt-4">
+              <i class="fa fa-exclamation fa-3x text-warning"></i>
+            </div>
+            <h2 class="fw-bold mt-3">Are you sure?</h2>
+            <p class="text-muted mb-4">you won't be able to retrieve this!</p>
+          </div>
+            <div class="movebtn">
+              <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>&nbsp;
+              <button type="button" class="btn btn-danger" (click)="deleteData()" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

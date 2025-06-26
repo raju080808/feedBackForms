@@ -1,0 +1,49 @@
+nav{
+    background-color:#144492;
+    height:60px;
+}
+.pagetitle{
+    padding-top: 9rem;
+    font-weight: bold;
+    text-align: center;
+    color: #50004c;
+}
+.pagebody{
+  background-color: #F5FAFF;
+  padding-bottom: 60px;
+  width: 100%;
+  min-height:100vh;
+  font-family: 'Roboto', sans-serif;
+}
+form{
+  padding-top: 2rem;
+}
+input{
+  border: 1px solid black;
+}
+span{
+  color:red
+}
+.backclick{
+  font-size: 20px;
+  padding-left: 20px;
+  padding-top: 8px;
+  cursor: pointer;
+  color: white;
+}
+button{
+  background-color: #00E09F;
+}
+button:active{
+  background-color: #07bb88;
+}
+button:hover{
+  background-color: #07bb88;
+}
+.modal-content{
+  text-align: center; 
+}
+.custom-modal-size {
+  max-width: 300px;
+  height:500px;
+}
