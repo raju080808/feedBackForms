@@ -1,0 +1,72 @@
+// models/userFeedBack.ts
+import mongoose, { Schema, Document } from "mongoose";
+import { baseFeedbackFields } from "./baseFeedback";
+import Joi from "joi";
+export interface IUserFeedback extends Document {
+ 
+  fullName: string;
+  mobileNumber: string;
+  email: string;
+  orderId: string;
+  issueType: 'Order' | 'Medicine Availability' | 'Delivery' | 'Payment Issue' | 'all Good' | 'others';
+  feedBackMessage: string;
+  rating: number;
+}
+
+export const userFeedbackValidationSchema = Joi.object({
+ 
+      ...baseFeedbackFields,
+  fullName: Joi.string().trim().required().messages({
+
+    'any.required': 'Full name is required',
+    'string.empty': 'Full name cannot be empty',
+  }),
+  mobileNumber: Joi.string().pattern(/^\d{10}$/).required().messages({
+    'string.pattern.base': 'Mobile number must be exactly 10 digits',
+    'any.required': 'Mobile number is required',
+  }),
+  email: Joi.string().trim().lowercase().email().required().messages({
+    'string.email': 'Please provide a valid email address',
+    'any.required': 'Email is required',
+  }),
+  orderId: Joi.string().trim().required().messages({
+    'any.required': 'Order ID is required',
+  }),
+  issueType: Joi.string()
+    .valid('Order', 'Medicine Availability', 'Delivery', 'Payment Issue', 'all Good', 'others')
+    .required()
+    .messages({
+      'any.only': 'Invalid issue type',
+      'any.required': 'Issue type is required',
+    }),
+  feedBackMessage: Joi.string().min(10).max(1000).required().messages({
+    'string.min': 'Feedback must be at least 10 characters',
+    'string.max': 'Maximum feedback length is 1000 characters',
+    'any.required': 'Feedback message is required',
+  }),
+  rating: Joi.number().min(1).max(5).required().messages({
+    'number.min': 'Minimum rating is 1',
+    'number.max': 'Maximum rating is 5',
+    'any.required': 'Rating is required',
+  }),
+}).unknown(true);
+
+const userFeedbackSchema = new Schema<IUserFeedback>(
+  {
+    fullName: { type: String, required: true, trim: true },
+    mobileNumber: { type: String, required: true },
+    email: { type: String, required: true, lowercase: true, trim: true },
+    orderId: { type: String, required: true, trim: true },
+    issueType: {
+      type: String,
+      enum: ['Order', 'Medicine Availability', 'Delivery', 'Payment Issue', 'all Good', 'others'],
+      required: true,
+    },
+    feedBackMessage: { type: String, required: true },
+    rating: { type: Number, required: true, min: 1, max: 5 },
+  },
+  { timestamps: true }
+);
+
+const UserFeedback = mongoose.model<IUserFeedback>('UserFeedback', userFeedbackSchema);
+export default UserFeedback;
