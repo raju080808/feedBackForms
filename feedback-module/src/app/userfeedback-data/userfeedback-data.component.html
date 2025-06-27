@@ -1,0 +1,96 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="userfeedback">
+<h3>User Feedback Data</h3>
+@if(userfeedbackList.length > 0){
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Order ID</th>
+      <th>Issue Type</th>
+      <th>Feedback Message</th>
+      <th>Rating</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(feedback of userfeedbackList; track $index){
+    <tr>
+      <td>{{ feedback?.fullname | firstlettercaps}}</td>
+      <td>{{ feedback.orderid | uppercase}}</td>
+      <td>{{ feedback.issuetype }}</td>
+      <td>{{ feedback.feedbackmessage | nodata }}</td>
+      <td>{{ feedback.rating | nodata}}</td>
+      <td>
+        <button class="btn btn-primary" title="view" (click)="openViewPopup(feedback)">
+          <i class="fa fa-eye"></i></button>
+        <button class="btn btn-danger" on-click="openDeletePopup($index)" title="delete">
+          <i class="fa fa-trash"></i></button>   
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
+}
+<div class="modal fade" id="viewConfirmModel" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top custom-width">
+      <div class="modal-content">
+        <div class="modal-body modelbody">
+          @if(selectedRow){
+            <div class="summary-container">
+              <div class="summary-title">
+                <i class="fa fa-arrow-circle-left" data-bs-dismiss="modal"></i> Feedback Summary
+              </div>
+              <div class="summary-grid">
+              <div>
+               <div class="summary-label">Full Name:</div>
+                  <div class="summary-value">{{selectedRow.fullname | firstlettercaps}}</div>
+              </div>
+              <div>
+                <div class="summary-label">Order Id:</div>
+                  <div class="summary-value">{{selectedRow.orderid | uppercase}}</div>
+                </div>
+                <div>
+                  <div class="summary-label">Issue Type Selected:</div>
+                  <div class="summary-value">{{selectedRow.issuetype}}</div>
+                </div>
+                <div>
+                  <div class="summary-label">Feedback Message Given:</div>
+                  <div class="summary-value">{{selectedRow.feedbackmessage | nodata}}</div>
+                </div>
+                <div>
+                  <div class="summary-label">Rating Given:</div>
+                  <div class="summary-value">{{selectedRow.rating | nodata}}</div>
+                </div>
+              </div>
+            </div>
+            }
+            
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered custom-modal-width">
+      <div class="modal-content">
+        <div class="modal-body modelbody bg-light">
+          <div class="modelbody">
+            <div class="icon-circle mb-3 mx-auto mt-4">
+              <i class="fa fa-exclamation fa-3x text-warning"></i>
+            </div>
+            <h2 class="fw-bold mt-3">Are you sure?</h2>
+            <p class="text-muted mb-4">you won't be able to retrieve this!</p>
+          </div>
+            <div class="movebtn">
+              <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>&nbsp;
+              <button type="button" class="btn btn-danger" (click)="deleteData()" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

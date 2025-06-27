@@ -1,0 +1,62 @@
+nav{
+  background-color:#144492;
+  height:60px;
+}
+.pagebody{
+  background-color: #F5FAFF;
+  padding-bottom: 60px;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+form{
+  padding-top: 7rem;
+}
+input,select,textarea{
+  border: 1px solid black;
+}
+textarea{
+  resize: none;
+}
+span{
+  color:red
+}
+.star-rating {
+  direction: ltr;
+}
+.star{
+  font-size: 2rem; /*one rem=16px */
+  color: lightgray;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.star.filled {
+  color: gold;
+}
+.backclick{
+  font-size: 20px;
+  padding-left: 20px;
+  padding-top: 8px;
+  cursor: pointer;
+  color: white;
+}
+.optionalinput{
+  color: lightslategray;
+  font-style: italic;
+}
+button{
+  background-color: #00E09F;
+}
+button:active{
+  background-color: #07bb88;
+}
+button:hover{
+  background-color: #07bb88;
+}
+.modal-content{
+  text-align: center; 
+}
+.custom-modal-size {
+  max-width: 400px;
+  height:600px;
+}

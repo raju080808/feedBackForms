@@ -1,0 +1,100 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<nav class="navbar fixed-top"></nav>
+<div class="pagebody">
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <form class="form-group" [formGroup]="userFeedback" (ngSubmit)="userSubmit()">  
+        <label class="mt-3">Full Name<span>*</span></label>
+        <input type="name" class="form-control" formControlName="fullname"/>
+         @if (userFeedback.get('fullname')?.touched && userFeedback.get('fullname')?.invalid) {
+            <div class="text-danger small mt-1">             
+               @if (userFeedback.get('fullname')?.hasError('required')) {
+                 <div>*Please Enter Your Full Name</div>
+                    }
+                 </div>
+                }
+        <label class="mt-3">Mobile Number<span>*</span></label>
+            <input type="number" class="form-control" formControlName="mobilenumber"/>
+            @if (userFeedback.get('mobilenumber')?.touched && userFeedback.get('mobilenumber')?.invalid) {
+            <div class="text-danger small mt-1">             
+                @if (userFeedback.get('mobilenumber')?.hasError('required')) {
+                    <div>*Please Enter Mobile Number</div>
+                    }
+                    @if (userFeedback.get('mobilenumber')?.hasError('pattern')) {
+                        <div>*Enter Valid Mobile Number</div>
+                            }
+                </div>
+                }
+        <label class="mt-3">Email<span>*</span></label>
+          <input type="email" class="form-control" formControlName="email" />
+            @if (userFeedback.get('email')?.touched && userFeedback.get('email')?.invalid) {
+            <div class="text-danger small mt-1">             
+               @if (userFeedback.get('email')?.hasError('required')) {
+                 <div>*Email reqired</div>
+                    }
+                @if(userFeedback.get('email')?.hasError('pattern')){
+                    <div class="text-danger small mt-1">*Enter Valid Email</div>
+                    }
+                  </div>
+                }
+        <label class="mt-3">Order Id<span>*</span></label>
+        <input type="name" class="form-control" formControlName="orderid"/>
+         @if (userFeedback.get('orderid')?.touched && userFeedback.get('orderid')?.invalid) {
+          <div class="text-danger small mt-1">             
+           @if (userFeedback.get('orderid')?.hasError('required')) {
+             <div>*Please Enter Orderid</div>
+                 }
+           </div>
+           }
+        <label class="mt-3">Issue Type<span>*</span></label>
+          <select formControlName="issuetype" class="form-control">
+            <option name="order">Order</option>
+               <option name="delivery">Delivery</option>
+                <option name="medicineavailable">Medicine availability</option>
+                <option name="paymentissue">Payment Issue</option>
+                <option name="other">Other</option>
+          </select>
+           @if (userFeedback.get('issuetype')?.touched && userFeedback.get('issuetype')?.invalid) {
+             <div class="text-danger small mt-1">             
+              @if (userFeedback.get('issuetype')?.hasError('required')) {
+                <div>*Please Select Any One</div>
+                 }
+              </div>
+             }
+        <label class="mt-3">Feedback Message<span class="optionalinput">(optional)</span></label>
+        <input type="hidden" name="rating" class="form-control" />
+        <textarea class="form-control" formControlName="feedbackmessage" rows="3"></textarea>
+        <label class="mt-3">Rating<span class="optionalinput">(optional)</span></label>
+          <div class="star-rating ">
+            <ng-container *ngFor="let star of stars; let i = index">
+              <i 
+                 class="star" 
+                 [class.filled]="i < rating" 
+                 (click)="setRating(i + 1)">&#9733;</i>
+              </ng-container>
+          </div><br/>
+           <div class="button-center">
+              <button class="btn w-100">SUMBIT FEEDBACK</button>
+           </div>
+        </form>
+      </div>
+</div>
+<div class="modal fade" id="formSubittedModel" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered custom-modal-size">
+    <div class="modal-content">
+      <div class="modal-body modelbody bg-light text-center">
+        <button type="button" class="btn-close btn-sm float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="mb-3 mt-5">
+          <i class="fa fa-check fa-3x text-success"></i>
+        </div>
+        <h3 class="fw-bold mb-5">Your form is submitted successfully</h3>
+      </div>
+    </div>
+  </div>
+ </div>
+</div>
+
+<!-- <app-userfeedback-data [feedbackList]="feedbackData"></app-userfeedback-data> -->
