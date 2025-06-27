@@ -24,7 +24,7 @@ const router=express.Router();
  *                     type: string
  *                     example: Rahul Sharma
  *                   mobileNumber:
- *                     type: string
+ *                     type: number
  *                     example: "9876543210"
  *                   email:
  *                     type: string

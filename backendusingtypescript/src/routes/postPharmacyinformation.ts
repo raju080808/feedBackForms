@@ -27,7 +27,7 @@ const router = express.Router();
  *                 type: string
  *                 example: Ravi Kumar
  *               mobileNumber:
- *                 type: string
+ *                 type: number
  *                 example: "9876543210"
  *               email:
  *                 type: string

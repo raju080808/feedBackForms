@@ -31,7 +31,7 @@ const options = {
               enum: ['user'],
             },
             fullName: { type: 'string',example:"jaya raju" },
-            mobileNumber: { type: 'string', example: '9908089697' },
+            mobileNumber: { type: 'number', example: '9908089697' },
             email: { type: 'string', example: 'jaya@gmail.com' },
             orderId: { type: 'string',example:"ORD123" },
             issueType: {
@@ -68,7 +68,7 @@ const options = {
             },
             pharmacyName: { type: 'string' },
             contactPersonName: { type: 'string' },
-            mobileNumber: { type: 'string', example: '9876543210' },
+            mobileNumber: { type: 'number', example: '9876543210' },
             email: { type: 'string', example: 'pharmacy@example.com' },
             feedBackCategory: {
               type: 'string',

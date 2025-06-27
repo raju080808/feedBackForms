@@ -13,8 +13,14 @@ export const submitPharmacyInformation = async (req: Request, res: Response) => 
   try {
     await savePharmacyInformation(req.body);
     res.status(201).json({ message: "Pharmacy registered successfully" });
-  } catch (err) {
-    console.error("Failed to save pharmacy:", err);
-    res.status(500).json({ message: "Failed to save pharmacy", error: err });
-  }
+  } catch (err:any) {
+          
+
+    if (err.code === 11000) {
+      res.status(409).json({ message: "Error: Duplicate user (email already exists)" });
+      return;
+    }
+     console.error("MongoDB Error:", err);
+    res.status(500).json({ message: "Failed to save user", error: err.message });
+        }
 };

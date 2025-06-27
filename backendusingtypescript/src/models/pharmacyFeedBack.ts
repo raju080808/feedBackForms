@@ -4,7 +4,7 @@ import { baseFeedbackFields } from "./baseFeedback";
 export interface iPharmacyFeedBack extends Document {
   pharmacyName: string;
   contactPersonName: string;
-  mobileNumber: string;
+  mobileNumber: number;
   email: string;
   feedBackCategory: 'Technical' | 'Support' | 'Delivery' | 'Suggestions';
   feedBackMessage: string;
@@ -21,10 +21,18 @@ export const pharmacyFeedbackValidationSchema=Joi.object({
         'any.required': 'Contact person name is required',
         'string.empty': 'Contact person name cannot be empty',
       }),
-      mobileNumber:Joi.string().pattern(/^\d{10}$/).trim().required().messages({
-        'any.required':'mobile number is requires',
-        'string.empty':'mobile number cannot be empty'
-      }),
+      mobileNumber: Joi.number()
+  .integer()
+  .min(1000000000)
+  .max(9999999999)
+  .required()
+  .messages({
+    "number.base": "Mobile number must be a number",
+    "number.min": "Mobile number must be 10 digits",
+    "number.max": "Mobile number must be 10 digits",
+    "any.required": "Mobile number is required",
+  }),
+
       email:Joi.string().pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).trim().required().messages({
         'any.required':'Email is required',
         'string.empty':'Email cannot be empty'
@@ -62,7 +70,7 @@ const pharmacyFeedBackSchema: Schema = new Schema(
       trim: true
     },
     mobileNumber: {
-      type: String,
+      type: Number,
       required: [true, 'Mobile number is required'],
       trim: true,
       validate: {

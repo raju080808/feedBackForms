@@ -17,6 +17,7 @@ import {
   savepharmacy,
   saveuser,
   unifiedfeedbacks,
+  deletefeedbacks,
 } from './routes';
 dotenv.config();
 const app = express();
@@ -36,6 +37,7 @@ const routes = [
   {path:"/saveuser", handler:saveuser},
   {path:"/pharmacy", handler:savepharmacy},
   {path:"/unifiedfeedbacks",handler:unifiedfeedbacks},
+  {path:'/delete',handler:deletefeedbacks},
 ];
 routes.forEach(({ path, handler }) => app.use(path, handler));
 

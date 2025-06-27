@@ -22,7 +22,7 @@ const router = express.Router();
  *                 type: string
  *                 example: Jane Doe
  *               mobileNumber:
- *                 type: string
+ *                 type: number
  *                 example: "9876543210"
  *               email:
  *                 type: string
