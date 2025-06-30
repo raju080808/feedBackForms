@@ -9,8 +9,8 @@ export interface IUserFeedback extends Document {
   email: string;
   orderId: string;
   issueType: 'Order' | 'Medicine Availability' | 'Delivery' | 'Payment Issue' | 'all Good' | 'others';
-  feedBackMessage: string;
-  rating: number;
+  feedBackMessage?: string;
+  rating?: number;
 }
 
 export const userFeedbackValidationSchema = Joi.object({
@@ -47,15 +47,15 @@ export const userFeedbackValidationSchema = Joi.object({
       'any.only': 'Invalid issue type',
       'any.required': 'Issue type is required',
     }),
-  feedBackMessage: Joi.string().min(10).max(1000).required().messages({
-    'string.min': 'Feedback must be at least 10 characters',
+  feedBackMessage: Joi.string().max(1000).optional().allow('').messages({
+   
     'string.max': 'Maximum feedback length is 1000 characters',
-    'any.required': 'Feedback message is required',
+    
   }),
-  rating: Joi.number().min(1).max(5).required().messages({
-    'number.min': 'Minimum rating is 1',
+  rating: Joi.number().max(5).optional().messages({
+    
     'number.max': 'Maximum rating is 5',
-    'any.required': 'Rating is required',
+    
   }),
 }).unknown(true);
 
@@ -70,8 +70,8 @@ const userFeedbackSchema = new Schema<IUserFeedback>(
       enum: ['Order', 'Medicine Availability', 'Delivery', 'Payment Issue', 'all Good', 'others'],
       required: true,
     },
-    feedBackMessage: { type: String, required: true },
-    rating: { type: Number, required: true, min: 1, max: 5 },
+    feedBackMessage: { type: String },
+    rating: { type: Number, max: 5 },
   },
   { timestamps: true }
 );

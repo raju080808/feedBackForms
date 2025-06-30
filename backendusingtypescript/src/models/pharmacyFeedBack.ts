@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import Joi from "joi";
+import Joi, { required } from "joi";
 import { baseFeedbackFields } from "./baseFeedback";
 export interface iPharmacyFeedBack extends Document {
   pharmacyName: string;
@@ -7,8 +7,8 @@ export interface iPharmacyFeedBack extends Document {
   mobileNumber: number;
   email: string;
   feedBackCategory: 'Technical' | 'Support' | 'Delivery' | 'Suggestions';
-  feedBackMessage: string;
-  rating: number;
+  feedBackMessage?: string;
+  rating?: number;
 }
 export const pharmacyFeedbackValidationSchema=Joi.object({
     
@@ -44,15 +44,12 @@ export const pharmacyFeedbackValidationSchema=Joi.object({
            'any.only': 'Invalid feedback category',
            'any.required': 'Issue type is required',
          }),
-          feedBackMessage: Joi.string().min(10).max(1000).required().messages({
-             'string.min': 'Feedback must be at least 10 characters',
+          feedBackMessage: Joi.string().max(1000).optional().allow('').messages({
              'string.max': 'Maximum feedback length is 1000 characters',
-             'any.required': 'Feedback message is required',
+            
            }),
-           rating: Joi.number().min(1).max(5).required().messages({
-             'number.min': 'Minimum rating is 1',
+           rating: Joi.number().max(5).optional().messages({
              'number.max': 'Maximum rating is 5',
-             'any.required': 'Rating is required',
            }),
 
 }).unknown(true);
@@ -97,14 +94,10 @@ const pharmacyFeedBackSchema: Schema = new Schema(
     },
     feedBackMessage: {
       type: String,
-      required: [true, 'Feedback message is required'],
-      minlength: [10, 'Feedback must be at least 10 characters'],
-      maxlength: [1000, 'Maximum feedback length is 1000 characters']
+    
     },
     rating: {
       type: Number,
-      required: [true, 'Rating is required'],
-      min: [1, 'Minimum rating is 1'],
       max: [5, 'Maximum rating is 5']
     }
   },
