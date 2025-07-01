@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import UserInformation from "../models/userFeedBack";
-import PharmacyInformation from "../models/pharmacyFeedBack";
+import UserInformation from "../models/usersinformation";
+import PharmacyInformation from "../models/pharmacyinformation";
 import { userFeedbackValidationSchema } from "../models/userFeedBack";
 import { pharmacyFeedbackValidationSchema } from "../models/pharmacyFeedBack";
 
@@ -25,6 +25,7 @@ export const checkFeedbackSource = async (
       }
 
       const user = await UserInformation.findOne({ email: email.toLowerCase().trim() });
+      
       if (!user) {
         res.status(403).json({ message: "User not found. Please register first." });
         return;
