@@ -42,7 +42,7 @@ const options = {
                 'Delivery',
                 'Payment Issue',
                 'all Good',
-                'others',
+                'Others',
               ],
             },
             feedBackMessage: { type: 'string',example:"no major issues" },

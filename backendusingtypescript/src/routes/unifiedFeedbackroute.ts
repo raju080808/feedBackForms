@@ -23,7 +23,7 @@ import { checkFeedbackSource } from "../middlewares/unifiedmiddleware";
  *               value:
  *                 feedbackType: user
  *                 fullName: "Jaya Raju"
- *                 mobileNumber: "9908089697"
+ *                 mobileNumber: 9908089697
  *                 email: "jaya@gmail.com"
  *                 orderId: "ORD123"
  *                 issueType: "Delivery"
@@ -35,7 +35,7 @@ import { checkFeedbackSource } from "../middlewares/unifiedmiddleware";
  *                 feedbackType: pharmacy
  *                 pharmacyName: "ABC Pharmacy"
  *                 contactPersonName: "Dr. Reddy"
- *                 mobileNumber: "9876543210"
+ *                 mobileNumber: 9876543210
  *                 email: "pharmacy@example.com"
  *                 feedBackCategory: "Support"
  *                 feedBackMessage: "Need faster support"

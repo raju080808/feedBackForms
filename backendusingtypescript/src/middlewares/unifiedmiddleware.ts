@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import UserInformation from "../models/usersinformation";
-import PharmacyInformation from "../models/pharmacyinformation";
+import UserInformation from "../models/userFeedBack";
+import PharmacyInformation from "../models/pharmacyFeedBack";
 import { userFeedbackValidationSchema } from "../models/userFeedBack";
 import { pharmacyFeedbackValidationSchema } from "../models/pharmacyFeedBack";
 
@@ -29,6 +29,16 @@ export const checkFeedbackSource = async (
         res.status(403).json({ message: "User not found. Please register first." });
         return;
       }
+      if (user.fullName.toLocaleLowerCase() !== req.body.fullName.trim().toLocaleLowerCase()) {
+        res.status(403).json({code:"FULLNAME_MISMATCH", message: "User name mismatch" });
+        return;
+      }
+      if (user.mobileNumber !== req.body.mobileNumber) {
+       
+        res.status(403).json({code:"MOBILE_MISMATCH", message: "Mobile number mismatch" });
+        return;
+      }
+      
 
     } else if (feedbackType === "pharmacy") {
       const { error } = pharmacyFeedbackValidationSchema.validate(req.body, { abortEarly: false });
@@ -42,14 +52,27 @@ export const checkFeedbackSource = async (
         res.status(403).json({ message: "Pharmacy not found. Please register first." });
         return;
       }
-
+      if(pharmacy.pharmacyName.toLocaleLowerCase() != req.body.pharmacyName.toLocaleLowerCase(
+        
+      )){
+         res.status(403).json({code:"PHARMACYNAME_MISMATCH", message: "pharmacy name is missmatched" });
+        return;
+      }
+      if(pharmacy.contactPersonName.toLocaleLowerCase() != req.body.contactPersonName.trim().toLocaleLowerCase()){
+         res.status(403).json({code:"CONTACTPERSION_MISMATCH", message: "contact persion  name is missmatched" });
+        return;
+      }
+     if(pharmacy.mobileNumber !== req.body.mobileNumber){
+         res.status(403).json({code:"MOBILE_MISMATCH", message: "mobile number is missmatched" });
+        return;
+      }
     } else {
       res.status(400).json({ message: "Invalid feedback type." });
       return;
     }
 
     // ✅ If everything passed, call next
-    console.log(feedbackType, "---------------------------------------------------");
+   
     next();
 
   } catch (error) {

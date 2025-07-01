@@ -8,7 +8,7 @@ export interface IUserFeedback extends Document {
   mobileNumber: number;
   email: string;
   orderId: string;
-  issueType: 'Order' | 'Medicine Availability' | 'Delivery' | 'Payment Issue' | 'all Good' | 'others';
+  issueType: 'Order' | 'Medicine Availability' | 'Delivery' | 'Payment Issue' | 'all Good' | 'Others';
   feedBackMessage?: string;
   rating?: number;
 }
@@ -41,7 +41,7 @@ export const userFeedbackValidationSchema = Joi.object({
     'any.required': 'Order ID is required',
   }),
   issueType: Joi.string()
-    .valid('Order', 'Medicine Availability', 'Delivery', 'Payment Issue', 'all Good', 'others')
+    .valid('Order', 'Medicine Availability', 'Delivery', 'Payment Issue', 'all Good', 'Others')
     .required()
     .messages({
       'any.only': 'Invalid issue type',
@@ -67,7 +67,7 @@ const userFeedbackSchema = new Schema<IUserFeedback>(
     orderId: { type: String, required: true, trim: true },
     issueType: {
       type: String,
-      enum: ['Order', 'Medicine Availability', 'Delivery', 'Payment Issue', 'all Good', 'others'],
+      enum: ['Order', 'Medicine Availability', 'Delivery', 'Payment Issue', 'all Good', 'Others'],
       required: true,
     },
     feedBackMessage: { type: String },
